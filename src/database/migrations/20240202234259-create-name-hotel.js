@@ -2,30 +2,33 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
-
+    await queryInterface.createTable('product', {
       id: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.STRING,
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
       },
-
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
-      email: {
-        type: Sequelize.STRING,
+      price: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
       },
-
-      password_hash: {
+      category: {
         type: Sequelize.STRING,
         allowNull: false,
       },
+
+      // obs : não sei se vamos deixa o path :)
+
+      path: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -35,10 +38,10 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-    })
+    });
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('users');
-  },
+    await queryInterface.dropTable('product');
+  }
 };

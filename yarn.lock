@@ -1730,6 +1730,11 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.0.4.tgz#dbce03740f50a4786ba994c1fb908844d27b038c"
   integrity sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==
 
+modules@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/modules/-/modules-0.4.0.tgz#7a856fd0d8a9e0a5c3e3bbbbab68960910ec8c89"
+  integrity sha512-LX4JgwPHJr1FurPDKp1BlGgMXqZXtxO1O8ABGmj2g15CbLGlInTHcA9flqw6uN6oYKE2T0ngWdiHvcX97mdBsw==
+
 moment-timezone@^0.5.43:
   version "0.5.44"
   resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.44.tgz#a64a4e47b68a43deeab5ae4eb4f82da77cdf595f"
