@@ -1,5 +1,5 @@
 import { v4 } from "uuid"
-import User from "../User"
+import User from "../User.js"
 import * as Yup from "yup"
 
 class UserController {
@@ -7,10 +7,9 @@ class UserController {
     const schema = Yup.object().shape({
       name: Yup.string().required("Nome obrigatório"),
       email: Yup.string().email().required("Email Obrigatório"),
-      password_hash: Yup.string()
+      password: Yup.string()
         .required()
         .min(6, "Digite pelo menos 6 caracteres"),
-      admin: Yup.bool(),
     })
 
     try {
@@ -19,7 +18,7 @@ class UserController {
       return response.status(400).json({ error: err.errors })
     }
 
-    const { name, email, password_hash, admin } = request.body
+    const { name, email, password } = request.body
 
     const userExist = await User.findOne({
       where: { email },
@@ -33,13 +32,10 @@ class UserController {
       id: v4(),
       name,
       email,
-      password_hash,
-      admin,
+      password,
     })
 
-    return response
-      .status(201)
-      .json({ id: user.id, name, email, password_hash })
+    return response.status(201).json({ id: user.id, name, email })
   }
 }
 
