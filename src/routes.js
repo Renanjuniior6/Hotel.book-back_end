@@ -19,7 +19,7 @@ routes.use(authMiddleware)
 
 routes.post("/create-hotel", uploads.single("file"), HotelController.store)
 routes.get("/hotels", HotelController.index)
-routes.put('/hotel/:id', upload.single('file'), HotelController.update)
+routes.put('/hotel/:id', uploads.single('file'), HotelController.update)
 
 routes.post("/create-city", CityController.store)
 routes.get("/cities", CityController.index)
