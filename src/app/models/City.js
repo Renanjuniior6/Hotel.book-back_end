@@ -10,6 +10,7 @@ class City extends Model {
         sequelize,
       },
     )
+    return this
   }
 }
 

@@ -1,8 +1,13 @@
 import express from "express"
 import routes from "./routes.js"
-import { resolve } from "path"
+import path from "path"
+import { fileURLToPath } from "url"
 
 import "./database/index.js"
+
+const __filename = fileURLToPath(import.meta.url)
+
+const __dirname = path.dirname(__filename)
 
 class App {
   constructor() {
@@ -16,7 +21,7 @@ class App {
     this.app.use(express.json())
     this.app.use(
       "hotel-file",
-      express.static(resolve(__dirname, "..", "uploads")),
+      express.static(path.join(__dirname, "..", "uploads")),
     )
   }
 
