@@ -8,7 +8,7 @@ class CityController {
     })
 
     if (!schema.isValid(req.body)) {
-      return res.status(400).json({ message: "It must be a string" })
+      return res.status(400).json({ error: "It must be a string!" })
     }
 
     const { name } = req.body
@@ -18,7 +18,7 @@ class CityController {
     })
 
     if (cityExists) {
-      return res.status(401).json({ message: "City already exists!" })
+      return res.status(401).json({ error: "City already exists!" })
     }
 
     const { id } = await City.create({
@@ -32,6 +32,57 @@ class CityController {
     const cities = await City.findAll()
 
     return res.status(200).json(cities)
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+    })
+
+    if (!schema.isValid(req.body)) {
+      return res.status(400).json({ error: "It must be a string!" })
+    }
+
+    const { name } = req.body
+
+    const { id } = req.params
+
+    const city = await City.findByPk(id)
+
+    if (!city) {
+      return res
+        .status(400)
+        .json({ error: "Make sure your city Id is correct!" })
+    }
+
+    await City.update(
+      {
+        name,
+      },
+      {
+        where: { id },
+      },
+    )
+
+    return res.json({ message: "Item updated!" })
+  }
+
+  async delete(req, res) {
+    const { id } = req.params
+
+    const city = await City.findByPk(id)
+
+    if (!city) {
+      return res
+        .status(400)
+        .json({ error: "Make sure your city Id is correct!" })
+    }
+
+    await City.destroy({
+      where: { id },
+    })
+
+    return res.json({ message: "Item deleted!" })
   }
 }
 

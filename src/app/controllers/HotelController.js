@@ -1,5 +1,6 @@
 import * as Yup from "yup"
 import Hotel from "../models/Hotel.js"
+import City from "../models/City.js"
 
 class HotelController {
   async store(req, res) {
@@ -64,26 +65,34 @@ class HotelController {
   }
 
   async index(req, res) {
-    const hotels = await Hotel.findAll()
+    const hotels = await Hotel.findAll({
+      include: [
+        {
+          model: City,
+          as: "city",
+          attributes: ["id", "name"],
+        },
+      ],
+    })
 
     return res.status(200).json(hotels)
   }
 
   async update(req, res) {
     const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      city_id: Yup.number().required(),
-      price: Yup.number().required(),
-      serviceTax: Yup.number().required(),
-      fireEnsurance: Yup.number().required(),
-      rooms: Yup.number().required(),
-      squareMeters: Yup.number().required(),
-      garage: Yup.bool().required(),
-      furniture: Yup.bool().required(),
-      nearMetro: Yup.bool().required(),
-      bathroom: Yup.bool().required(),
-      pets: Yup.bool().required(),
-      offer: Yup.bool().required(),
+      name: Yup.string(),
+      city_id: Yup.number(),
+      price: Yup.number(),
+      serviceTax: Yup.number(),
+      fireEnsurance: Yup.number(),
+      rooms: Yup.number(),
+      squareMeters: Yup.number(),
+      garage: Yup.bool(),
+      furniture: Yup.bool(),
+      nearMetro: Yup.bool(),
+      bathroom: Yup.bool(),
+      pets: Yup.bool(),
+      offer: Yup.bool(),
     })
 
     try {
@@ -108,17 +117,19 @@ class HotelController {
       offer,
     } = req.body
 
-    const { id } = request.params
+    const { id } = req.params
 
-    const updateHotel = await Hotel.findByPk(id)
+    const findHotel = await Hotel.findByPk(id)
 
-    if (!updateHotel) {
-      return response.status(401).json({ error: 'make sure your product Id is correct' })
+    if (!findHotel) {
+      return res
+        .status(401)
+        .json({ error: "Make sure your hotel Id is correct" })
     }
 
     let path
-    if (request.file) {
-      path = request.file.filename
+    if (req.file) {
+      path = req.file.filename
     }
 
     await Hotel.update(
@@ -137,14 +148,32 @@ class HotelController {
         pets,
         offer,
         path,
-      }, {
-      where: { id }
-    }
+      },
+      {
+        where: { id },
+      },
     )
 
-    return res.status(201).json(hotel)
+    return res.status(201).json({ message: "Item updated!" })
   }
 
+  async delete(req, res) {
+    const { id } = req.params
+
+    const hotel = await Hotel.findByPk(id)
+
+    if (!hotel) {
+      return res
+        .status(400)
+        .json({ error: "Make sure your hotel Id is correct!" })
+    }
+
+    await Hotel.destroy({
+      where: { id },
+    })
+
+    return res.json({ messagem: "Item deleted!" })
+  }
 }
 
 export default new HotelController()

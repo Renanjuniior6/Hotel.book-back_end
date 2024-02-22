@@ -19,9 +19,12 @@ routes.use(authMiddleware)
 
 routes.post("/create-hotel", uploads.single("file"), HotelController.store)
 routes.get("/hotels", HotelController.index)
-routes.put('/hotel/:id', uploads.single('file'), HotelController.update)
+routes.put("/hotel/:id", uploads.single("file"), HotelController.update)
+routes.delete("/hotel/:id", HotelController.delete)
 
 routes.post("/create-city", CityController.store)
 routes.get("/cities", CityController.index)
+routes.put("/city/:id", CityController.update)
+routes.delete("/city/:id", CityController.delete)
 
 export default routes
