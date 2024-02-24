@@ -32,7 +32,7 @@ class Hotel extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.City, { foreignKey: "city_id", as: "city" })
+    this.belongsTo(models.City, { foreignKey: "cityId", as: "city" })
   }
 }
 

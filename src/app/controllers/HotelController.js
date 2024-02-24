@@ -1,12 +1,12 @@
 import * as Yup from "yup"
 import Hotel from "../models/Hotel.js"
 import City from "../models/City.js"
-
+import User from "../models/User.js"
 class HotelController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      city_id: Yup.number().required(),
+      cityId: Yup.number().required(),
       price: Yup.number().required(),
       serviceTax: Yup.number().required(),
       fireEnsurance: Yup.number().required(),
@@ -28,7 +28,7 @@ class HotelController {
 
     const {
       name,
-      city_id,
+      cityId,
       price,
       serviceTax,
       fireEnsurance,
@@ -44,9 +44,23 @@ class HotelController {
 
     const { filename: path } = req.file
 
+    const { admin: isAdmin } = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Acess denied" })
+    }
+
+    const hotelExist = await Hotel.findOne({
+      where: { name },
+    })
+
+    if (hotelExist) {
+      return res.status(401).json({ error: "Hotel already exists!" })
+    }
+
     const hotel = await Hotel.create({
       name,
-      city_id,
+      cityId,
       price,
       serviceTax,
       fireEnsurance,
@@ -65,6 +79,12 @@ class HotelController {
   }
 
   async index(req, res) {
+    const { admin: isAdmin } = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Acess denied" })
+    }
+
     const hotels = await Hotel.findAll({
       include: [
         {
@@ -81,7 +101,7 @@ class HotelController {
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
-      city_id: Yup.number(),
+      cityId: Yup.number(),
       price: Yup.number(),
       serviceTax: Yup.number(),
       fireEnsurance: Yup.number(),
@@ -103,7 +123,7 @@ class HotelController {
 
     const {
       name,
-      city_id,
+      cityId,
       price,
       serviceTax,
       fireEnsurance,
@@ -118,6 +138,12 @@ class HotelController {
     } = req.body
 
     const { id } = req.params
+
+    const { admin: isAdmin } = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Acess denied" })
+    }
 
     const findHotel = await Hotel.findByPk(id)
 
@@ -135,7 +161,7 @@ class HotelController {
     await Hotel.update(
       {
         name,
-        city_id,
+        cityId,
         price,
         serviceTax,
         fireEnsurance,
@@ -159,6 +185,12 @@ class HotelController {
 
   async delete(req, res) {
     const { id } = req.params
+
+    const { admin: isAdmin } = await User.findByPk(req.userId)
+
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Acess denied" })
+    }
 
     const hotel = await Hotel.findByPk(id)
 

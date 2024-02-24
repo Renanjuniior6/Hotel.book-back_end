@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("hotels", {
+    await queryInterface.createTable("Hotels", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -23,11 +23,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      service_tax: {
+      serviceTax: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      fire_ensurance: {
+      fireEnsurance: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -35,7 +35,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      square_meters: {
+      squareMeters: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -47,7 +47,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      near_metro: {
+      nearMetro: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
@@ -63,11 +63,11 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      updated_at: {
+      updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      created_at: {
+      createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
@@ -75,6 +75,6 @@ module.exports = {
   },
 
   async down(queryInterface) {
-    await queryInterface.dropTable("hotels")
+    await queryInterface.dropTable("Hotels")
   },
 }

@@ -3,9 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn("hotels", "city_id", {
+    await queryInterface.addColumn("Hotels", "cityId", {
       type: Sequelize.INTEGER,
-      references: { model: "cities", key: "id" },
+      references: { model: "Cities", key: "id" },
       onUpdate: "CASCADE",
       onDelete: "SET NULL",
       allowNull: true,
@@ -13,6 +13,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("hotels", "city_id")
+    await queryInterface.removeColumn("Hotels", "cityId", Sequelize.INTEGER)
   },
 }

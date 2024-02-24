@@ -20,7 +20,7 @@ class App {
   middlewares() {
     this.app.use(express.json())
     this.app.use(
-      "hotel-file",
+      "/hotel-file",
       express.static(path.join(__dirname, "..", "uploads")),
     )
   }
