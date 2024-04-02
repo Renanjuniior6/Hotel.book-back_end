@@ -2,6 +2,7 @@ import express from "express"
 import routes from "./routes.js"
 import path from "path"
 import { fileURLToPath } from "url"
+import cors from "cors"
 
 import "./database/index.js"
 
@@ -12,6 +13,7 @@ const __dirname = path.dirname(__filename)
 class App {
   constructor() {
     this.app = express()
+    this.app.use(cors())
 
     this.middlewares()
     this.routes()

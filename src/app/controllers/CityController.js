@@ -1,6 +1,6 @@
 import * as Yup from "yup"
 import City from "../models/City.js"
-import User from "../models/User.js"
+// import User from "../models/User.js"
 
 class CityController {
   async store(req, res) {
@@ -14,11 +14,11 @@ class CityController {
 
     const { name } = req.body
 
-    const { admin: isAdmin } = await User.findByPk(req.userId)
+    /*  const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    }
+      } */
 
     const cityExists = await City.findOne({
       where: { name },
@@ -36,11 +36,11 @@ class CityController {
   }
 
   async index(req, res) {
-    const { admin: isAdmin } = await User.findByPk(req.userId)
+    /* const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    }
+    } */
 
     const cities = await City.findAll()
 
@@ -60,11 +60,11 @@ class CityController {
 
     const { id } = req.params
 
-    const { admin: isAdmin } = await User.findByPk(req.userId)
+    /*  const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    }
+    } */
 
     const city = await City.findByPk(id)
 
@@ -89,11 +89,11 @@ class CityController {
   async delete(req, res) {
     const { id } = req.params
 
-    const { admin: isAdmin } = await User.findByPk(req.userId)
+    /* const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    }
+    } */
 
     const city = await City.findByPk(id)
 
