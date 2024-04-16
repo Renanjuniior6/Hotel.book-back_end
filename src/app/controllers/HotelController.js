@@ -1,7 +1,7 @@
 import * as Yup from "yup"
 import Hotel from "../models/Hotel.js"
 import City from "../models/City.js"
-// import User from "../models/User.js"
+import User from "../models/User.js"
 class HotelController {
   async store(req, res) {
     const schema = Yup.object().shape({
@@ -44,11 +44,11 @@ class HotelController {
 
     const { filename: path } = req.file
 
-    /* const { admin: isAdmin } = await User.findByPk(req.userId)
+    const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    } */
+    }
 
     const hotelExist = await Hotel.findOne({
       where: { name },
@@ -79,12 +79,6 @@ class HotelController {
   }
 
   async index(req, res) {
-    //  const { admin: isAdmin } = await User.findByPk(req.userId)
-
-    // if (!isAdmin) {
-    //   return res.status(401).json({ message: "Acess denied" })
-    //  }
-
     const hotels = await Hotel.findAll({
       include: [
         {
@@ -141,11 +135,11 @@ class HotelController {
 
     const { id } = req.params
 
-    // const { admin: isAdmin } = await User.findByPk(req.userId)
+    const { admin: isAdmin } = await User.findByPk(req.userId)
 
-    // if (!isAdmin) {
-    //    return res.status(401).json({ message: "Acess denied" })
-    // }
+    if (!isAdmin) {
+      return res.status(401).json({ message: "Acess denied" })
+    }
 
     const findHotel = await Hotel.findByPk(id)
 
@@ -188,11 +182,11 @@ class HotelController {
   async delete(req, res) {
     const { id } = req.params
 
-    /*  const { admin: isAdmin } = await User.findByPk(req.userId)
+    const { admin: isAdmin } = await User.findByPk(req.userId)
 
     if (!isAdmin) {
       return res.status(401).json({ message: "Acess denied" })
-    } */
+    }
 
     const hotel = await Hotel.findByPk(id)
 

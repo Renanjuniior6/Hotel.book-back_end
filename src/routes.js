@@ -4,7 +4,7 @@ import multerConfig from "./config/multer.js"
 import UserController from "./app/controllers/UserController.js"
 import SessionController from "./app/controllers/SessionController.js"
 import HotelController from "./app/controllers/HotelController.js"
-// import authMiddleware from "./app/middlewares/auth.js"
+import authMiddleware from "./app/middlewares/auth.js"
 import CityController from "./app/controllers/CityController.js"
 import multer from "multer"
 
@@ -15,15 +15,17 @@ routes.post("/users", UserController.store)
 
 routes.post("/session", SessionController.store)
 
-// routes.use(authMiddleware)
+routes.get("/cities", CityController.index)
+
+routes.get("/hotels", HotelController.index)
+
+routes.use(authMiddleware)
 
 routes.post("/create-hotel", uploads.single("file"), HotelController.store)
-routes.get("/hotels", HotelController.index)
 routes.put("/hotel/:id", uploads.single("file"), HotelController.update)
 routes.delete("/hotel/:id", HotelController.delete)
 
 routes.post("/create-city", CityController.store)
-routes.get("/cities", CityController.index)
 routes.put("/city/:id", CityController.update)
 routes.delete("/city/:id", CityController.delete)
 
