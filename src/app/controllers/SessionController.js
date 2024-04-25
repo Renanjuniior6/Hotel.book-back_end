@@ -26,13 +26,13 @@ class SessionController {
 
     if (!user) {
       return response
-        .status(400)
+        .status(401)
         .json({ error: "Make sure your email or password is correct" })
     }
 
-    if (!user.checkPassword(password)) {
+    if (!(await user.checkPassword(password))) {
       return response
-        .status(400)
+        .status(401)
         .json({ error: "Make sure your email or password is correct" })
     }
 
