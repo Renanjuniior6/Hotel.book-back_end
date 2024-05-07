@@ -20,7 +20,7 @@ class Hotel extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:3001/hotel-file/${this.path}`
+            return `https://hotelbook-backend-production.up.railway.app/hotel-file/${this.path}`
           },
         },
       },
