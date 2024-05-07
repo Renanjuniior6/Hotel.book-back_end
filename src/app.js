@@ -11,8 +11,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const corsOption = {
-  origin:
-    "https://hotel-book-front-7jnn7wwwi-renanjuniior6s-projects.vercel.app",
+  origin: "https://hotel-book-front-end.vercel.app",
   credentials: true,
 }
 
