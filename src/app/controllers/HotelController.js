@@ -15,9 +15,12 @@ class HotelController {
       garage: Yup.bool().required(),
       furniture: Yup.bool().required(),
       nearMetro: Yup.bool().required(),
-      bathroom: Yup.bool().required(),
+      bathroom: Yup.number().required(),
       pets: Yup.bool().required(),
       offer: Yup.bool().required(),
+      offerPrice: Yup.number(),
+      stars: Yup.number().required(),
+      floor: Yup.number().required(),
     })
 
     try {
@@ -40,6 +43,9 @@ class HotelController {
       bathroom,
       pets,
       offer,
+      offerPrice,
+      stars,
+      floor,
     } = req.body
 
     const { filename: path } = req.file
@@ -73,6 +79,9 @@ class HotelController {
       pets,
       offer,
       path,
+      offerPrice,
+      stars,
+      floor,
     })
 
     return res.status(201).json(hotel)
@@ -106,9 +115,12 @@ class HotelController {
       garage: Yup.bool(),
       furniture: Yup.bool(),
       nearMetro: Yup.bool(),
-      bathroom: Yup.bool(),
+      bathroom: Yup.number(),
       pets: Yup.bool(),
       offer: Yup.bool(),
+      offerPrice: Yup.number(),
+      stars: Yup.number(),
+      floor: Yup.number(),
     })
 
     try {
@@ -131,6 +143,9 @@ class HotelController {
       bathroom,
       pets,
       offer,
+      offerPrice,
+      stars,
+      floor,
     } = req.body
 
     const { id } = req.params
@@ -170,6 +185,9 @@ class HotelController {
         pets,
         offer,
         path,
+        offerPrice,
+        stars,
+        floor,
       },
       {
         where: { id },

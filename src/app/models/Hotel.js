@@ -13,10 +13,13 @@ class Hotel extends Model {
         garage: Sequelize.BOOLEAN,
         furniture: Sequelize.BOOLEAN,
         nearMetro: Sequelize.BOOLEAN,
-        bathroom: Sequelize.BOOLEAN,
+        bathroom: Sequelize.INTEGER,
         pets: Sequelize.BOOLEAN,
         offer: Sequelize.BOOLEAN,
         path: Sequelize.STRING,
+        offerPrice: Sequelize.INTEGER,
+        stars: Sequelize.INTEGER,
+        floor: Sequelize.INTEGER,
         url: {
           type: Sequelize.VIRTUAL,
           get() {
